@@ -29,7 +29,7 @@ println!("{}", Pdf::get_text("book.pdf")?);
 # }
 ```
 
-By default the package searches the PHP package's common Linux, Homebrew,
+By default the package searches common Linux, Homebrew,
 MacPorts and Windows Xpdf locations, then PATH. If the binary is located elsewhere,
 pass its path to `with_binary`:
 
@@ -145,7 +145,7 @@ to the installed program without restricting its capabilities.
 
 ## Output and errors
 
-`text` returns a UTF-8 `String`. Like PHP, it trims only spaces, tabs, LF, CR,
+`text` returns a UTF-8 `String`. It trims only spaces, tabs, LF, CR,
 NUL, vertical tabs and form feeds from the beginning and end. It does not trim
 Unicode whitespace or change interior page breaks or line endings. Extraction
 behavior and supported options depend on the installed Poppler or Xpdf version.
@@ -158,22 +158,7 @@ PDF, process I/O, timeout, unsuccessful exit (including status and stderr), and
 invalid UTF-8. File readability is checked by `set_pdf`; binary execution and
 options are checked by the converter when extracting text.
 
-## PHP API mapping
-
-Parity reference: [spatie/pdf-to-text at c732f15](https://github.com/spatie/pdf-to-text/tree/c732f153c299ef23d9e44dc953c55e31e24e57aa).
-Its README is the guide source. The integration tests execute the original PDF
-fixtures with a real converter, plus an encrypted derivative made with qpdf.
-
-| PHP behavior | Rust API and verification |
-| --- | --- |
-| Constructor auto-detection / explicit binary | `new() -> Result<Pdf, Error>` / `with_binary(path)`; real extraction and missing-binary tests. PATH discovery is added after the original common paths. |
-| `setPdf` | `set_pdf(path)?`; readable-file validation and paths with spaces, quotes, Unicode and leading hyphens. Input paths become absolute before invoking the converter, preventing option interpretation. Directories are rejected. |
-| `setOptions` / `addOptions` | `set_options` / `add_options`; same ASCII trim, first-space split, optional hyphen, replacement and append behavior. Real layout, page-selection and password tests. |
-| `setTimeout` | `set_timeout(Duration)`; 60 seconds by default, zero disables it. Rust's duration cannot represent the negative values rejected by PHP. Kill-and-reap test. |
-| `text(callback)` | `text()` / `text_with(callback)`; native `Command` customization instead of Symfony Process. Original stdout byte trimming, captured stderr and nonzero exits tested. |
-| `getText` | `get_text(path)` for defaults; use the fluent API for PHP's optional binary, options, timeout and callback arguments. No separate build step. |
-| Raw PHP strings | `text_bytes` / `text_bytes_with` preserve non-UTF-8 bytes; `text` reports invalid UTF-8 instead of silently replacing it. |
-
 Configuration methods consume and return `Self`; keep their returned value.
-Extraction borrows the configured converter so it can be reused. There is no
-framework integration or compatibility layer.
+Extraction borrows the configured converter so it can be reused. Input paths
+become absolute before execution, preventing a filename from being read as an
+option. Directories are rejected.
