@@ -1,4 +1,4 @@
-# spatie-pdf-to-text
+# Extract text from a pdf
 
 [![Latest version on crates.io](https://img.shields.io/crates/v/spatie-pdf-to-text.svg?style=flat-square)](https://crates.io/crates/spatie-pdf-to-text)
 [![Tests](https://img.shields.io/github/actions/workflow/status/spatie/pdf-to-text-rust/ci.yml?branch=main&style=flat-square)](https://github.com/spatie/pdf-to-text-rust/actions/workflows/ci.yml)
