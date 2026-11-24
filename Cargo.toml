@@ -1,19 +1,22 @@
 [package]
-name = {{crate_name_quoted}}
-version = "0.1.0"
+name = "spatie-pdf-to-text"
+version = "1.0.0"
 edition = "2024"
 rust-version = "1.89"
-authors = [{{author_quoted}}]
-description = {{description_quoted}}
+authors = ["Freek Van der Herten <freek@spatie.be>"]
+description = "Extract text from a PDF"
 license = "MIT"
-repository = "https://github.com/{{owner}}/{{repository}}"
-documentation = "https://docs.rs/{{crate_name}}"
+repository = "https://github.com/spatie/pdf-to-text-rust"
+documentation = "https://docs.rs/spatie-pdf-to-text"
 readme = "README.md"
-keywords = ["spatie"]
-categories = ["development-tools"]
-include = ["/src/", "/tests/*.rs", "/build.rs", "/docs/", "/README.md", "/LICENSE.md", "/CHANGELOG.md", "/CONTRIBUTING.md", "/SECURITY.md", "/Cargo.lock"]
+keywords = ["spatie", "pdf", "pdftotext", "poppler", "text"]
+categories = ["text-processing"]
+include = ["/src/", "/tests/", "/build.rs", "/docs/", "/README.md", "/LICENSE.md", "/CHANGELOG.md", "/CONTRIBUTING.md", "/SECURITY.md", "/Cargo.lock"]
 
 [dependencies]
+tempfile = "3.23"
+thiserror = "2"
+wait-timeout = "0.2"
 
 [lints.rust]
 unsafe_code = "forbid"

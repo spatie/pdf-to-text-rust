@@ -3,7 +3,11 @@ title: Testing
 weight: 5
 ---
 
-Run these checks from the package directory:
+Run these checks from the package directory. Install `pdftotext` as described in
+[installation](installation-and-setup.md). Integration tests also use Python 3
+for deterministic cross-platform process fixtures. Set `PYTHON` to its
+executable path if `python3` is not available. The library itself does not
+require Python.
 
 ```sh
 cargo fmt --all -- --check
